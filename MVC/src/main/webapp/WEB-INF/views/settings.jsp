@@ -9,7 +9,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>Welcome Dashboard</h1>
+    <h1>Welcome Settings</h1>
+    Sn. <c:out value="${admin.email}"></c:out>
 </div>
 </body>
 </html>

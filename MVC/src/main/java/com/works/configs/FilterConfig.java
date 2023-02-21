@@ -17,6 +17,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.works.entities.Admin;
 import lombok.RequiredArgsConstructor;
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.CleanResults;
@@ -43,8 +44,7 @@ public class FilterConfig implements Filter {
         request.setCharacterEncoding("UTF8");
         response.setCharacterEncoding("UTF8");
 
-        String  url = request.getRequestURI();
-        boolean loginStatus = true;
+
 
 
         // xss control
@@ -97,7 +97,28 @@ public class FilterConfig implements Filter {
         long end = System.currentTimeMillis();
         long between = end - start;
         System.out.println( between );
-        chain.doFilter(request, response);
+
+        String  url = request.getRequestURI();
+        boolean loginStatus = true;
+        String[] urls = {"/", "/adminLogin"};
+        for( String itemUrl : urls ) {
+            if (itemUrl.equals(url)) {
+                loginStatus = false;
+            }
+        }
+
+        if (loginStatus) {
+            boolean status = request.getSession().getAttribute("admin") == null;
+            if (status) {
+                response.sendRedirect("/");
+            }else {
+                Admin admin = (Admin) request.getSession().getAttribute("admin");
+                request.setAttribute("admin", admin);
+                chain.doFilter(request, response);
+            }
+        }else {
+            chain.doFilter(request, response);
+        }
 
     }
 
