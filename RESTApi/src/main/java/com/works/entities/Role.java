@@ -3,6 +3,7 @@ package com.works.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +17,6 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    Set<Customer> customers;
+    List<Customer> customers;
 
 }

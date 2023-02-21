@@ -3,6 +3,7 @@ package com.works.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,6 @@ public class Customer {
     private Boolean enable;
 
     @ManyToMany
-    Set<Role> roles;
+    List<Role> roles;
 
 }
