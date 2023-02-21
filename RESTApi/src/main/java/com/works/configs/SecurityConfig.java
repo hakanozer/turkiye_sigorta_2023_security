@@ -22,3 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
+/*
+ali@mail.com -> product
+veli@mail.com -> note
+zehra@mail.com -> product, note
+ */
