@@ -2,6 +2,7 @@ package com.works.controllers;
 
 import com.works.entities.Admin;
 import com.works.services.AdminService;
+import com.works.services.SQLDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.util.List;
 public class LoginController {
 
     final AdminService adminService;
+    final SQLDB sqldb;
 
     @GetMapping("/")
     public String login() {
@@ -35,9 +37,11 @@ public class LoginController {
         }else {
             model.addAttribute("password", admin.getPassword() );
             boolean loginStatus = adminService.login(admin);
-            System.out.println("loginStatus : " + loginStatus);
+            //boolean loginStatus = sqldb.login(admin.getEmail(), admin.getPassword());
+            if (loginStatus) {
+                return "redirect:/dashboard";
+            }
             return "login";
-            //return "redirect:/";
         }
     }
 
