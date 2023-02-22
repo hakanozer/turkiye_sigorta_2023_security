@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -15,7 +17,7 @@ public class ProductRestController {
     final ProductService productService;
 
     @PostMapping("/save")
-    public ResponseEntity save(@RequestBody Product product) {
+    public ResponseEntity save(@Valid @RequestBody Product product) {
         return productService.save(product);
     }
 
